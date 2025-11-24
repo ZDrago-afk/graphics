@@ -11,22 +11,21 @@ int main() {
     int cy = getmaxy() / 2;
 
     int R, smallR;
-    cout << "Enter revolution radius: ";
-    cin >> R;
-    cout << "Enter circle radius: ";
-    cin >> smallR;
-
+    cout << "Enter orbit radius and small circle radius: ";
+    cin >> R >> smallR;
     float angle = 0;
 
-    while (!kbhit()) {
+    while (1) {
+        cleardevice();
+
         int x = cx + R * cos(angle);
         int y = cy + R * sin(angle);
 
         circle(cx, cy, smallR);
         circle(x, y, smallR);
+
         angle += 0.03;
         delay(10);
-        cleardevice();
     }
 
     closegraph();
