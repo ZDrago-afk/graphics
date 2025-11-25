@@ -1,47 +1,28 @@
-#include<graphics.h>
-#include<iostream>
-#include<conio.h>
+#include <graphics.h>
+#include <cmath>
 using namespace std;
 void line_dda(int xs, int ys, int xe, int ye)
 {
-    int n;
-    cout<<"tell amount of space betweeen dots";
-    cin>>n;
-    int x=0;
-    if(xs>xe)
+    int dx = xe - xs;
+    int dy = ye - ys;
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+    float Xinc = dx / (float)steps;
+    float Yinc = dy / (float)steps;
+    float x = xs;
+    float y = ys;
+    for(int i = 0; i <= steps; i++)
     {
-        int t=xs;
-        xs=xe;
-        xe=t;
-    }
-    while(xs!=xe && ys!=ye)
-    {
-        int xc=xe-xs;
-        int yc=ye-ys;
-        if(x%n==0)
-        {
-        putpixel(xs,ys,WHITE);
-        }
-        int po=2*(yc)-xc;
-        if(po<0)
-        {
-            xs=xs+1;
-            po=po+2*(yc);
-        }
-        else
-        {
-            xs+=1;
-            ys+=1;
-            po=po+2*(yc)-2*(xc);
-        }
-        x++;
+        putpixel(round(x), round(y), WHITE);
+        x += Xinc;
+        y += Yinc;
     }
 }
 int main()
 {
     int gd = DETECT, gm;
     initgraph(&gd, &gm, "");
-    line_dda(400,100,200,200);
+    line_dda(400, 100, 200, 200);
+    line_dda(100, 100, 400, 300);
     getch();
     closegraph();
     return 0;
